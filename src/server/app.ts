@@ -8,6 +8,7 @@ import {
   notFoundError,
 } from "./middlewares/errorMiddlewares/errorMiddlewares.js";
 import { tipsRouter } from "./router/tipsRouters/tipsRouters.js";
+import { endpoints } from "./router/endpoints.js";
 
 export const app = express();
 
@@ -30,7 +31,8 @@ app.use(morgan("dev"));
 
 app.use(express.json());
 
-app.use("/plantips", usersRouter, tipsRouter);
+app.use(endpoints.users, usersRouter);
+app.use(endpoints.tips, tipsRouter);
 
 app.use(notFoundError);
 app.use(generalError);

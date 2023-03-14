@@ -7,6 +7,7 @@ import { connectDatabase } from "../../../database/connectDatabase";
 import { User } from "../../../database/models/User";
 import { type UserCredentials } from "../../../Types/users/types";
 import { app } from "../../app";
+import { endpoints } from "../endpoints";
 
 let server: MongoMemoryServer;
 
@@ -24,14 +25,14 @@ afterEach(async () => {
   await User.deleteMany();
 });
 
-const loginEndpoint = "/plantips/login";
+const loginEndpoint = `${endpoints.users}${endpoints.login}`;
 
 const mockUser: UserCredentials = {
   username: "Daisy",
   password: "12345678",
 };
 
-describe("Given a POST '/plantips/login' endpoint", () => {
+describe("Given a POST '/users/login' endpoint", () => {
   describe("When it receives a request to login a user with username 'Daisy' and password '12345678'", () => {
     test("Then it should respond with a token", async () => {
       const expectedStatus = 200;
