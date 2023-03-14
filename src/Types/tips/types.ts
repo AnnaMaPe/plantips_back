@@ -1,9 +1,5 @@
-export interface UserCredentials {
-  username: string;
-  password: string;
-}
-
 export interface TipStructure {
+  id: string;
   commonName: string;
   scientificName: string;
   careLevel: string;
@@ -11,4 +7,5 @@ export interface TipStructure {
   light: string;
   tip: string;
   image: string;
+  sharedBy: string;
 }

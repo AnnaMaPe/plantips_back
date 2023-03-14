@@ -5,7 +5,7 @@ import bcryptsjs from "bcryptjs";
 import jsw, { TokenExpiredError } from "jsonwebtoken";
 import { connectDatabase } from "../../../database/connectDatabase";
 import { User } from "../../../database/models/User";
-import { type UserCredentials } from "../../../types";
+import { type UserCredentials } from "../../../Types/users/types";
 import { app } from "../../app";
 
 let server: MongoMemoryServer;
