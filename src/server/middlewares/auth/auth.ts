@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { type CustomJwtPayload } from "../../controllers/types";
 import { CustomError } from "../../../CustomError/CustomError";
 
-const auth = (req: UserRequest, res: Response, next: NextFunction) => {
+export const auth = (req: UserRequest, res: Response, next: NextFunction) => {
   try {
     const authHeader = req.header("Authorization");
 
@@ -12,7 +12,7 @@ const auth = (req: UserRequest, res: Response, next: NextFunction) => {
       throw new Error("Missing authorization header");
     }
 
-    if (!authHeader?.includes("Bearer")) {
+    if (!authHeader?.startsWith("Bearer")) {
       throw new Error("Missing bearer in authorization header");
     }
 
