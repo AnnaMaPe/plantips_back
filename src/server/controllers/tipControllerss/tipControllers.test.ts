@@ -1,10 +1,11 @@
 import { type Response, type Request } from "express";
 import { CustomError } from "../../../CustomError/CustomError";
 import { Tip } from "../../../database/models/Tip";
-import { type TipStructure } from "../../../types";
+import { type TipStructure } from "../../../Types/tips/types";
 import { getTips } from "./tipControllers";
 
 const mockTip: TipStructure = {
+  id: "23242424334",
   commonName: "Maranta lemon",
   scientificName: "Epipemnum aureum",
   careLevel: "Best of connoisseurs",
@@ -12,6 +13,7 @@ const mockTip: TipStructure = {
   water: "Once a week",
   tip: "Its leaves rise during the night, if you see that it stops doing so, it is time to water your Maranta!",
   image: "beatufiulplant.jpeg",
+  sharedBy: "1229379442",
 };
 
 beforeEach(() => {

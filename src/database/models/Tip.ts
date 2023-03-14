@@ -8,6 +8,7 @@ export const tipSchema = new Schema({
   light: { type: String, required: true },
   tip: { type: String, required: true },
   image: { type: String, required: true },
+  sharedBy: { type: String, required: true, ref: "User" },
 });
 
 export const Tip = model("Tip", tipSchema, "tips");
