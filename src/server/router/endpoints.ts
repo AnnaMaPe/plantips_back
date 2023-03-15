@@ -4,4 +4,6 @@ export const endpoints = {
   tips: "/tips",
   root: "/",
   myTips: "/my-tips",
+  delete: "/delete",
+  id: "/:id",
 };
