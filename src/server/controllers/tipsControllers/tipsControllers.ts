@@ -43,7 +43,7 @@ export const getMyTips = async (
   }
 };
 
-export const deleteTips = async (
+export const deleteTipById = async (
   req: UserRequest,
   res: Response,
   next: NextFunction

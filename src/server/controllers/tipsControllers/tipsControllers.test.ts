@@ -3,7 +3,7 @@ import { CustomError } from "../../../CustomError/CustomError";
 import { Tip } from "../../../database/models/Tip";
 import { maranta, spider } from "../../../mocks/tipsMocks";
 import { type UserRequest } from "../../../Types/users/types";
-import { getMyTips, getTips } from "./tipsControllers";
+import { deleteTipById, getMyTips, getTips } from "./tipsControllers";
 
 const tipsList = [maranta, spider];
 
@@ -90,6 +90,51 @@ describe("Given a getMyTips controller", () => {
       Tip.find = jest.fn().mockReturnValue(undefined);
 
       await getMyTips(req as UserRequest, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given a deleteTipById controller", () => {
+  describe("When it receives a request to delete the Maranta tip", () => {
+    test("Then it should call its status method with a status 200 ", async () => {
+      const req: Partial<UserRequest> = { params: { id: maranta.id } };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue(maranta.id),
+      };
+      const next = jest.fn();
+      const expectedStatus = 200;
+
+      Tip.findByIdAndDelete = jest.fn().mockImplementationOnce(() => ({
+        exec: jest.fn().mockReturnValue(maranta),
+      }));
+      await deleteTipById(req as UserRequest, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+    });
+  });
+  describe("When it receives a  bad request ", () => {
+    test("Then it should call its next method with an error and status 500", async () => {
+      const req: Partial<UserRequest> = {};
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue({}),
+      };
+      const next = jest.fn();
+
+      req.params = {};
+
+      const expectedError = new CustomError(
+        "Internal Server Error",
+        500,
+        "Not possible to delete the Tip"
+      );
+
+      Tip.findByIdAndDelete = jest.fn().mockReturnValue(undefined);
+
+      await deleteTipById(req as UserRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });
