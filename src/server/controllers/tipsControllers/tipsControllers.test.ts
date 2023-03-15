@@ -3,7 +3,7 @@ import { CustomError } from "../../../CustomError/CustomError";
 import { Tip } from "../../../database/models/Tip";
 import { maranta, spider } from "../../../mocks/tipsMocks";
 import { type UserRequest } from "../../../Types/users/types";
-import { getMyTips, getTips } from "./tipControllers";
+import { getMyTips, getTips } from "./tipsControllers";
 
 const tipsList = [maranta, spider];
 

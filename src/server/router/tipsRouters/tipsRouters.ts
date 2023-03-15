@@ -2,7 +2,7 @@ import { Router } from "express";
 import {
   getMyTips,
   getTips,
-} from "../../controllers/tipControllerss/tipControllers.js";
+} from "../../controllers/tipsControllers/tipsControllers.js";
 import { endpoints } from "../endpoints.js";
 
 export const tipsRouter = Router();
