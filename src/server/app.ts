@@ -9,6 +9,7 @@ import {
 } from "./middlewares/errorMiddlewares/errorMiddlewares.js";
 import { tipsRouter } from "./router/tipsRouters/tipsRouters.js";
 import { endpoints } from "./router/endpoints.js";
+import { auth } from "./middlewares/auth/auth.js";
 
 export const app = express();
 
@@ -32,7 +33,7 @@ app.use(morgan("dev"));
 app.use(express.json());
 
 app.use(endpoints.users, usersRouter);
-app.use(endpoints.tips, tipsRouter);
+app.use(endpoints.tips, auth, tipsRouter);
 
 app.use(notFoundError);
 app.use(generalError);
