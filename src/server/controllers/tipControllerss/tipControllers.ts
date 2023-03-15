@@ -29,9 +29,9 @@ export const getMyTips = async (
   next: NextFunction
 ) => {
   try {
-    const myTips = await Tip.find({ sharedBy: req.sharedBy }).exec();
+    const tips = await Tip.find({ sharedBy: req.sharedBy }).exec();
 
-    res.status(200).json({ myTips });
+    res.status(200).json({ tips });
   } catch {
     const customError = new CustomError(
       "Bad request",
