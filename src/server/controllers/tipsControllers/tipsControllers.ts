@@ -42,3 +42,27 @@ export const getMyTips = async (
     next(customError);
   }
 };
+
+export const deleteTipById = async (
+  req: UserRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  try {
+    const tips = await Tip.findByIdAndDelete({
+      _id: id,
+      sharedBy: req.sharedBy,
+    }).exec();
+
+    res.status(200).json({ tips });
+  } catch {
+    const customError = new CustomError(
+      "Internal Server Error",
+      500,
+      "Not possible to delete the Tip"
+    );
+
+    next(customError);
+  }
+};
