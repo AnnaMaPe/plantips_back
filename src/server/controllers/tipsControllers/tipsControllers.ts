@@ -1,4 +1,5 @@
 import { type NextFunction, type Request, type Response } from "express";
+import mongoose from "mongoose";
 import { CustomError } from "../../../CustomError/CustomError.js";
 import { Tip, type TipSchemaStructure } from "../../../database/models/Tip.js";
 import { type UserRequest } from "../../../Types/users/types.js";
@@ -78,7 +79,7 @@ export const createTip = async (
   try {
     const newTip = await Tip.create({
       ...tip,
-      sharedBy: id,
+      sharedBy: new mongoose.Types.ObjectId(id),
     });
 
     res.status(201).json({ ...newTip.toJSON() });

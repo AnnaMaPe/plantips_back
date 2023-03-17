@@ -1,5 +1,6 @@
 import { Router } from "express";
 import {
+  createTip,
   deleteTipById,
   getMyTips,
   getTips,
@@ -11,3 +12,4 @@ export const tipsRouter = Router();
 tipsRouter.get(endpoints.root, getTips);
 tipsRouter.get(endpoints.myTips, getMyTips);
 tipsRouter.delete(`${endpoints.delete}${endpoints.id}`, deleteTipById);
+tipsRouter.post(`${endpoints.create}`, createTip);

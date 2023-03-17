@@ -1,3 +1,4 @@
+import type * as core from "express-serve-static-core";
 import { type Request } from "express";
 
 export interface UserCredentials {
@@ -5,7 +6,11 @@ export interface UserCredentials {
   password: string;
 }
 
-export interface UserRequest extends Request {
-  sharedBy: string;
+export interface UserRequest<
+  P = core.ParamsDictionary,
+  ResBody = any,
+  ReqBody = any
+> extends Request<P, ResBody, ReqBody> {
   id: string;
+  sharedBy: string;
 }
