@@ -1,6 +1,6 @@
 import { type NextFunction, type Request, type Response } from "express";
 import { CustomError } from "../../../CustomError/CustomError.js";
-import { Tip } from "../../../database/models/Tip.js";
+import { Tip, type TipSchemaStructure } from "../../../database/models/Tip.js";
 import { type UserRequest } from "../../../Types/users/types.js";
 
 export const getTips = async (
@@ -63,6 +63,31 @@ export const deleteTipById = async (
       "Not possible to delete the Tip"
     );
 
+    next(customError);
+  }
+};
+
+export const createTip = async (
+  req: UserRequest,
+  res: Response,
+  next: NextFunction
+) => {
+  const tip = req.body as TipSchemaStructure;
+  const { id } = req;
+
+  try {
+    const newTip = await Tip.create({
+      ...tip,
+      sharedBy: id,
+    });
+
+    res.status(201).json({ ...newTip.toJSON() });
+  } catch (error) {
+    const customError = new CustomError(
+      "Not possible to create a Tip",
+      500,
+      "Tip not created. Try again!"
+    );
     next(customError);
   }
 };

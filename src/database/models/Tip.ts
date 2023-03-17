@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, type InferSchemaType } from "mongoose";
 
 export const tipSchema = new Schema({
   commonName: { type: String, required: true },
@@ -12,3 +12,5 @@ export const tipSchema = new Schema({
 });
 
 export const Tip = model("Tip", tipSchema, "tips");
+
+export type TipSchemaStructure = InferSchemaType<typeof tipSchema>;
