@@ -1,5 +1,5 @@
 import request from "supertest";
-import { maranta } from "../../../mocks/tipsMocks";
+import { maranta, spider } from "../../../mocks/tipsMocks";
 import { MongoMemoryServer } from "mongodb-memory-server";
 import mongoose from "mongoose";
 import { connectDatabase } from "../../../database/connectDatabase";
@@ -34,6 +34,38 @@ describe("Given a GET to '/tips' endpoint", () => {
       jwt.verify = jest.fn().mockReturnValueOnce({ sub: sharedBy });
       const response = await request(app)
         .get(getTipsEndpoint)
+        .set("Authorization", "Bearer 243534656768urthdy3dg")
+        .expect(expectedStatus);
+
+      expect(response.body).toHaveProperty("tips");
+    });
+  });
+});
+
+describe("Given a DELETE to '/tips/delete/:id' endpoint", () => {
+  describe("When it receives a request to  get all the tips", () => {
+    test("Then it should respond with an status 200 ", async () => {
+      const deleteTipsEndpoint = `${endpoints.tips}${endpoints.delete}`;
+      const expectedStatus = 200;
+
+      await Tip.create({
+        commonName: "Maranta lemon",
+        scientificName: "Epipemnum aureum",
+        careLevel: "Best of connoisseurs",
+        light: "Indirect light",
+        water: "Once a week",
+        tip: "Its leaves rise during the night, if you see that it stops doing so, it is time to water your Maranta!",
+        image: "beatufiulplant.jpeg",
+        sharedBy: "640631137b5cc26616353c5e",
+      });
+
+      const maranta = await Tip.findOne({ commonName: "Maranta lemon" });
+
+      const sharedBy = new mongoose.Types.ObjectId();
+      jwt.verify = jest.fn().mockReturnValueOnce({ sub: sharedBy });
+
+      const response = await request(app)
+        .delete(`${deleteTipsEndpoint}/${maranta!._id.toString()}`)
         .set("Authorization", "Bearer 243534656768urthdy3dg")
         .expect(expectedStatus);
 
