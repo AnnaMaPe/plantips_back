@@ -6,4 +6,5 @@ export const endpoints = {
   myTips: "/my-tips",
   delete: "/delete",
   id: "/:id",
+  create: "/create",
 };
