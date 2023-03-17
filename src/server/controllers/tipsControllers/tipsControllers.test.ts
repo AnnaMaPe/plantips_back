@@ -3,7 +3,12 @@ import { CustomError } from "../../../CustomError/CustomError";
 import { Tip } from "../../../database/models/Tip";
 import { maranta, spider } from "../../../mocks/tipsMocks";
 import { type UserRequest } from "../../../Types/users/types";
-import { deleteTipById, getMyTips, getTips } from "./tipsControllers";
+import {
+  createTip,
+  deleteTipById,
+  getMyTips,
+  getTips,
+} from "./tipsControllers";
 
 const tipsList = [maranta, spider];
 
@@ -135,6 +140,43 @@ describe("Given a deleteTipById controller", () => {
       Tip.findByIdAndDelete = jest.fn().mockReturnValue(undefined);
 
       await deleteTipById(req as UserRequest, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given a createTipById controller", () => {
+  describe("When it receives a request to create a Maranta tip", () => {
+    test("Then it should call its status method with a status 201", async () => {
+      const req: Partial<UserRequest> = {};
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+      };
+      const next = jest.fn();
+      const expectedStatus = 201;
+
+      Tip.create = jest.fn().mockReturnValue({ ...maranta });
+      await createTip(req as UserRequest, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+    });
+  });
+  describe("When it receives a  bad request ", () => {
+    test("Then it should call its next method with an error and status 500", async () => {
+      const req: Partial<UserRequest> = {};
+      const res: Partial<Response> = {};
+      const next = jest.fn();
+
+      req.body = {};
+
+      const expectedError = new CustomError(
+        "Not possible to create a Tip",
+        500,
+        "Tip not created. Try again!"
+      );
+
+      await createTip(req as UserRequest, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });

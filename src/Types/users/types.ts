@@ -7,4 +7,5 @@ export interface UserCredentials {
 
 export interface UserRequest extends Request {
   sharedBy: string;
+  id: string;
 }
