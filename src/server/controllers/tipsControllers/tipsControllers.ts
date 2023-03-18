@@ -74,12 +74,10 @@ export const createTip = async (
   next: NextFunction
 ) => {
   const tip = req.body as TipSchemaStructure;
-  const { id } = req;
 
   try {
     const newTip = await Tip.create({
       ...tip,
-      sharedBy: new mongoose.Types.ObjectId(id),
     });
 
     res.status(201).json({ ...newTip.toJSON() });
