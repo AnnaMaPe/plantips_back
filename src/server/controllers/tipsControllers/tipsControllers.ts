@@ -91,7 +91,7 @@ export const createTip = async (
 };
 
 export const getTipById = async (
-  req: UserRequest,
+  req: Request,
   res: Response,
   next: NextFunction
 ) => {
