@@ -7,6 +7,7 @@ import {
   createTip,
   deleteTipById,
   getMyTips,
+  getTipById,
   getTips,
 } from "./tipsControllers";
 
@@ -177,6 +178,53 @@ describe("Given a createTipById controller", () => {
       );
 
       await createTip(req as UserRequest, res as Response, next);
+
+      expect(next).toHaveBeenCalledWith(expectedError);
+    });
+  });
+});
+
+describe("Given a getTipById controller", () => {
+  describe("When it receives a request to obtain the maranta tip ", () => {
+    test("Then it should call its status method with a status 200 ", async () => {
+      const req: Partial<Request> = { params: { id: maranta.id } };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue(maranta),
+      };
+      const next = jest.fn();
+      req.body = { _id: maranta.id };
+      const expectedStatus = 200;
+
+      Tip.findOne = jest.fn().mockImplementationOnce(() => ({
+        exec: jest.fn().mockReturnValue({ _id: maranta.id }),
+      }));
+      await getTipById(req as Request, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
+    });
+  });
+
+  describe("When it receives a  bad request ", () => {
+    test("Then it should call its next method with an error and status 500", async () => {
+      const req: Partial<Request> = {};
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue({}),
+      };
+      const next = jest.fn();
+
+      req.params = {};
+
+      const expectedError = new CustomError(
+        "Internal Server Error",
+        500,
+        "Not possible to find the Tip"
+      );
+
+      Tip.findById = jest.fn().mockReturnValue(undefined);
+
+      await getTipById(req as Request, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(expectedError);
     });

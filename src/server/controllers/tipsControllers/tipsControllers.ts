@@ -89,3 +89,26 @@ export const createTip = async (
     next(customError);
   }
 };
+
+export const getTipById = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const { id } = req.params;
+  try {
+    const tip = await Tip.findById({
+      _id: id,
+    }).exec();
+
+    res.status(200).json({ tip });
+  } catch {
+    const customError = new CustomError(
+      "Internal Server Error",
+      500,
+      "Not possible to find the Tip"
+    );
+
+    next(customError);
+  }
+};
