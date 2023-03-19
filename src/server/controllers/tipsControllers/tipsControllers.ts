@@ -97,11 +97,11 @@ export const getTipById = async (
 ) => {
   const { id } = req.params;
   try {
-    const tip = await Tip.findById({
-      _id: id,
+    const detailTip = await Tip.findById({
+      id,
     }).exec();
 
-    res.status(200).json({ tip });
+    res.status(200).json({ detailTip });
   } catch {
     const customError = new CustomError(
       "Internal Server Error",
