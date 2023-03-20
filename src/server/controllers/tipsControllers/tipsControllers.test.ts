@@ -27,6 +27,14 @@ describe("Given a getTips controller", () => {
   const expectedStatus = 200;
   describe("When it receives a request to obtain tips without being filtered", () => {
     test("Then it should call its status method with an status 200 and a its json with the found tip", async () => {
+      const req: Partial<Request> = {
+        query: {},
+      };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue(maranta),
+      };
+      const next = jest.fn();
       Tip.find = jest.fn().mockImplementationOnce(() => ({
         exec: jest.fn().mockReturnValue(maranta),
       }));
@@ -59,6 +67,15 @@ describe("Given a getTips controller", () => {
 
   describe("When it receives a bad request", () => {
     test("Then it should call its next method method with an error ", async () => {
+      const req: Partial<Request> = {
+        query: {},
+      };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue(maranta),
+      };
+      const next = jest.fn();
+
       const expectedStatus = 401;
       const expectedErrorMessage = "Couldn't retrieve tips";
 
