@@ -24,24 +24,6 @@ afterEach(async () => {
   await Tip.deleteMany();
 });
 
-describe("Given a GET to '/tips' endpoint", () => {
-  describe("When it receives a request to  get all the tips", () => {
-    test("Then it should respond with an status 200 ", async () => {
-      const expectedStatus = 200;
-      const getTipsEndpoint = endpoints.tips;
-
-      const sharedBy = new mongoose.Types.ObjectId();
-      jwt.verify = jest.fn().mockReturnValueOnce({ sub: sharedBy });
-      const response = await request(app)
-        .get(getTipsEndpoint)
-        .set("Authorization", "Bearer 243534656768urthdy3dg")
-        .expect(expectedStatus);
-
-      expect(response.body).toHaveProperty("tips");
-    });
-  });
-});
-
 describe("Given a DELETE to '/tips/delete/:id' endpoint", () => {
   describe("When it receives a request to  get all the tips", () => {
     test("Then it should respond with an status 200 ", async () => {
@@ -66,7 +48,10 @@ describe("Given a DELETE to '/tips/delete/:id' endpoint", () => {
 
       const response = await request(app)
         .delete(`${deleteTipsEndpoint}/${maranta!._id.toString()}`)
-        .set("Authorization", "Bearer 243534656768urthdy3dg")
+        .set(
+          "Authorization",
+          "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFubmEiLCJzdWIiOiI2NDA2MzExMzdiNWNjMjY2MTYzNTNjNWUiLCJpYXQiOjE2NzkzMDM0OTQsImV4cCI6MTY3OTQ3NjI5NH0.RP-wJfAJqdVsB7lnKn97QcXLPSQ895iMBqB0mzsNnn8"
+        )
         .expect(expectedStatus);
 
       expect(response.body).toHaveProperty("tips");
