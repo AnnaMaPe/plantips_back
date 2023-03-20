@@ -8,10 +8,28 @@ export const getTips = async (
   res: Response,
   next: NextFunction
 ) => {
-  try {
-    const tips = await Tip.find().exec();
+  const filterByCareLevel = {
+    easyCare: "Ideal for beginners",
+    mediumCare: "Best for connoisseurs",
+    difficultCare: "Recommended for experts",
+  };
 
-    res.status(200).json({ tips });
+  try {
+    let tips;
+
+    if (!req.query) {
+      tips = await Tip.find().exec();
+      res.status(200).json({ tips });
+    }
+
+    if (
+      req.query.careLevel === filterByCareLevel.easyCare ||
+      req.query.careLevel === filterByCareLevel.mediumCare ||
+      req.query.careLevel === filterByCareLevel.difficultCare
+    ) {
+      tips = await Tip.find({ careLevel: req.query.careLevel }).exec();
+      res.status(200).json({ tips });
+    }
   } catch (error) {
     const customError = new CustomError(
       (error as Error).message,
