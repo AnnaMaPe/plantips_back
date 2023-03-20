@@ -17,19 +17,17 @@ export const getTips = async (
   try {
     let tips;
 
-    if (!req.query) {
-      tips = await Tip.find().exec();
-      res.status(200).json({ tips });
-    }
-
     if (
       req.query.careLevel === filterByCareLevel.easyCare ||
       req.query.careLevel === filterByCareLevel.mediumCare ||
       req.query.careLevel === filterByCareLevel.difficultCare
     ) {
       tips = await Tip.find({ careLevel: req.query.careLevel }).exec();
-      res.status(200).json({ tips });
+    } else {
+      tips = await Tip.find().exec();
     }
+
+    res.status(200).json({ tips });
   } catch (error) {
     const customError = new CustomError(
       (error as Error).message,
