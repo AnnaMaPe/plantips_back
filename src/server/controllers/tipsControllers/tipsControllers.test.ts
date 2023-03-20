@@ -25,7 +25,7 @@ describe("Given a getTips controller", () => {
   };
   const next = jest.fn();
   const expectedStatus = 200;
-  describe("When it receives a request to obtain tips", () => {
+  describe("When it receives a request to obtain tips without being filtered", () => {
     test("Then it should call its status method with an status 200 and a its json with the found tip", async () => {
       Tip.find = jest.fn().mockImplementationOnce(() => ({
         exec: jest.fn().mockReturnValue(maranta),
@@ -34,6 +34,26 @@ describe("Given a getTips controller", () => {
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
       expect(res.json).toHaveBeenCalledWith({ tips: maranta });
+    });
+  });
+
+  describe("When it receives a request to obtain tips being filtered by careLevel 'Best for connoisseurs'", () => {
+    test("Then it should call its status method with an status 200 and a its json with the found tip", async () => {
+      const req: Partial<Request> = {
+        query: { careLevel: "Recommended for experts" },
+      };
+      const res: Partial<Response> = {
+        status: jest.fn().mockReturnThis(),
+        json: jest.fn().mockResolvedValue(maranta),
+      };
+      const next = jest.fn();
+
+      Tip.find = jest.fn().mockImplementationOnce(() => ({
+        exec: jest.fn().mockReturnValue(maranta),
+      }));
+      await getTips(req as Request, res as Response, next);
+
+      expect(res.status).toHaveBeenCalledWith(expectedStatus);
     });
   });
 
