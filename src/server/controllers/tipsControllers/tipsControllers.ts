@@ -9,9 +9,9 @@ export const getTips = async (
   next: NextFunction
 ) => {
   const filterByCareLevel = {
-    easyCare: "Ideal for beginners",
-    mediumCare: "Best for connoisseurs",
-    difficultCare: "Recommended for experts",
+    easyCare: "ideal-for-beginners",
+    mediumCare: "best-for-connoisseurs",
+    difficultCare: "only-for-experts",
   };
 
   try {

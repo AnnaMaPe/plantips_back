@@ -48,7 +48,7 @@ describe("Given a getTips controller", () => {
   describe("When it receives a request to obtain tips being filtered by careLevel 'Best for connoisseurs'", () => {
     test("Then it should call its status method with an status 200 and a its json with the found tip", async () => {
       const req: Partial<Request> = {
-        query: { careLevel: "Recommended for experts" },
+        query: { careLevel: "only-for-experts" },
       };
       const res: Partial<Response> = {
         status: jest.fn().mockReturnThis(),
@@ -62,6 +62,7 @@ describe("Given a getTips controller", () => {
       await getTips(req as Request, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedStatus);
+      expect(res.json).toHaveBeenCalledWith({ tips: maranta });
     });
   });
 
