@@ -1,0 +1,229 @@
+{
+  "info": {
+    "_postman_id": "e67cf612-23c3-4ea7-ba04-fd7477670cbe",
+    "name": "Plantips",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "25532533"
+  },
+  "item": [
+    {
+      "name": "Login",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"username\": \"\", \n    \"password\": \"\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{render}}/users/login",
+          "host": ["{{render}}"],
+          "path": ["users", "login"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "All tips",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{render}}/tips",
+          "host": ["{{render}}"],
+          "path": ["tips"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "My tips",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{render}}/tips/my-tips",
+          "host": ["{{render}}"],
+          "path": ["tips"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Tip",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \n  \"commonName\": \"Snake plant\",\n  \"scientificName\": \"Sansevieria Moonshine\",\n  \"careLevel\": \"ideal-for-beginners\",\n  \"water\": \"Twice a month\",\n  \"light\": \"Low to bright indirect light\",\n  \"tip\": \"From time to time, remember that it is good to clean the leaves with a cloth and be careful not to break the leaves, in this way you will keep the pores free of dust and it will grow better. It is an ideal plant for bedrooms because it stores oxygen during the day and then releases it at night\",\n  \"image\": \"https://res.cloudinary.com/dduvthi6s/image/upload/c_scale,w_600/v1679434988/Plantips/Sansevieria-Moonshine_rfetfg.webp\",\n  \"sharedBy\":  \"641af4deef44c52782ac9be7\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{render}}/tips/create",
+          "host": ["{{render}}"],
+          "path": ["tips", "create"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete my tip",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "{{render}}/tips/delete/:id",
+          "host": ["{{render}}"],
+          "path": ["tips", "delete", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "641af74aba7dbd39a3ea6d10"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Filter by careLevel (ideal for beginners)",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{render}}/tips?careLevel=ideal-for-beginners",
+          "host": ["{{render}}"],
+          "path": ["tips"],
+          "query": [
+            {
+              "key": "careLevel",
+              "value": "ideal-for-beginners"
+            }
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Detail Tip",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{token}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{render}}/tips/:id",
+          "host": ["{{render}}"],
+          "path": ["tips", ":id"],
+          "variable": [
+            {
+              "key": "id",
+              "value": "641a33ecef44c52782ac9be2"
+            }
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "local",
+      "value": "http://localhost:4000",
+      "type": "string"
+    },
+    {
+      "key": "render",
+      "value": "https://anna-marrodan-final-project-202301-bcn.onrender.com",
+      "type": "string"
+    },
+    {
+      "key": "token",
+      "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Imd1ZXN0Iiwic3ViIjoiNjQxYWY0ZGVlZjQ0YzUyNzgyYWM5YmU3IiwiaWF0IjoxNjc5NDg4MzA4LCJleHAiOjE2Nzk2NjExMDh9.kxLrUGA0ZyRXLBpEndcsnJukpwlL2VqluthuqlJsJtM"
+    }
+  ]
+}
