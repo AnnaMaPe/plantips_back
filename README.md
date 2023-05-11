@@ -4,7 +4,7 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2023_Anna-Marrodan-Final-Project-back-202301-bcn&metric=coverage)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2023_Anna-Marrodan-Final-Project-back-202301-bcn)
 [![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=isdi-coders-2023_Anna-Marrodan-Final-Project-back-202301-bcn&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=isdi-coders-2023_Anna-Marrodan-Final-Project-back-202301-bcn)
 
-API REST for [PlanTips app](https://github.com/isdi-coders-2023/Anna-Marrodan-Final-Project-front-202301-bcn)
+API REST for [PlanTips app](https://anna-marrodan-final-project-202301.netlify.app/)
 
 ## Endpoints
 
