@@ -14,8 +14,9 @@ import { auth } from "./middlewares/auth/auth.js";
 export const app = express();
 
 const allowedOrigins = [
-  process.env.CORS_ALLOWED_ORIGIN_LOCAL!,
   process.env.CORS_ALLOWED_ORIGIN_PRODUCTION!,
+  process.env.CORS_ALLOWED_ORIGIN_PRODUCTION2!,
+  process.env.CORS_ALLOWED_ORIGIN_LOCAL!,
   process.env.CORS_ALLOWED_ORIGIN_LOCAL_1!,
   process.env.CORS_ALLOWED_ORIGIN_LOCAL_2!,
 ];
