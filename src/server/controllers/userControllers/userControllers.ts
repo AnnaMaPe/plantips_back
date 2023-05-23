@@ -3,7 +3,10 @@ import { type Response, type Request, type NextFunction } from "express";
 import bcryptjs from "bcryptjs";
 import jwt, { type JwtPayload } from "jsonwebtoken";
 import { CustomError } from "../../../CustomError/CustomError.js";
-import { type UserCredentials } from "../../../Types/users/types";
+import {
+  type RegisterUserCredentials,
+  type UserCredentials,
+} from "../../../Types/users/types";
 import { User } from "../../../database/models/User.js";
 
 export const loginUser = async (
@@ -44,5 +47,37 @@ export const loginUser = async (
     res.status(200).json({ token });
   } catch (error: unknown) {
     next(error);
+  }
+};
+
+export const registerUserController = async (
+  req: Request<
+    Record<string, unknown>,
+    Record<string, unknown>,
+    RegisterUserCredentials
+  >,
+  res: Response,
+  next: NextFunction
+) => {
+  const { username, password, email } = req.body;
+
+  try {
+    const hashedPassword = await bcryptjs.hash(password, 10);
+
+    const newUser = await User.create({
+      username,
+      password: hashedPassword,
+      email,
+    });
+
+    res.status(200).json({ message: "User was successfully registered" });
+  } catch (error: unknown) {
+    const customError = new CustomError(
+      (error as Error).message,
+      500,
+      "User was not created"
+    );
+
+    next(customError);
   }
 };
