@@ -62,15 +62,15 @@ export const registerUserController = async (
   const { username, password, email } = req.body;
 
   try {
-    const hashedPassword = await bcryptjs.hash(password, 10);
+    const hashedPassword = await bcryptjs.hash(password, 8);
 
-    const newUser = await User.create({
+    await User.create({
       username,
       password: hashedPassword,
       email,
     });
 
-    res.status(200).json({ message: "User was successfully registered" });
+    res.status(201).json({ message: "User was successfully registered" });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
