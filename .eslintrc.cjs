@@ -11,6 +11,7 @@ module.exports = {
       files: ["*.ts"],
       rules: {
         "@typescript-eslint/consistent-type-definitions": "off",
+        "@typescript-eslint/consistent-type-assertions": "off",
       },
     },
     {

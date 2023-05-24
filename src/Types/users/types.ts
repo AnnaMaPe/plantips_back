@@ -6,6 +6,10 @@ export interface UserCredentials {
   password: string;
 }
 
+export interface RegisterUserCredentials extends UserCredentials {
+  email: string;
+}
+
 export interface UserRequest<
   P = core.ParamsDictionary,
   ResBody = any,
