@@ -50,7 +50,7 @@ export const loginUser = async (
   }
 };
 
-export const registerUserController = async (
+export const registerUser = async (
   req: Request<
     Record<string, unknown>,
     Record<string, unknown>,

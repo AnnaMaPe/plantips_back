@@ -7,7 +7,7 @@ import {
   type RegisterUserCredentials,
   type UserCredentials,
 } from "../../../Types/users/types";
-import { loginUser, registerUserController } from "./userControllers";
+import { loginUser, registerUser } from "./userControllers";
 import { CustomError } from "../../../CustomError/CustomError";
 import { mockRegisterUser, mockUser } from "../../../mocks/userMocks";
 
@@ -130,7 +130,7 @@ describe("Given a registerUser controller", () => {
 
       User.create = jest.fn().mockResolvedValue(mockUserWithHashedPassword);
 
-      await registerUserController(req, res as Response, next);
+      await registerUser(req, res as Response, next);
 
       expect(res.status).toHaveBeenCalledWith(expectedSuccesRegisteredStatus);
       expect(res.json).toHaveBeenCalledWith({
@@ -158,7 +158,7 @@ describe("Given a registerUser controller", () => {
 
       User.create = jest.fn().mockRejectedValue(expectedError);
 
-      await registerUserController(req, res as Response, next);
+      await registerUser(req, res as Response, next);
 
       expect(next).toHaveBeenCalledWith(userNotRegisteredError);
     });
